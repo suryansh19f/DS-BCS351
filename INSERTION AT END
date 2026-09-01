@@ -1,0 +1,28 @@
+void insertEnd(struct Node **head, int value)
+{
+    struct Node *newNode;
+    struct Node *temp;
+
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    newNode->data = value;
+    newNode->next = NULL;
+
+    // If list is empty
+    if (*head == NULL)
+    {
+        *head = newNode;
+        return;
+    }
+
+    // Traverse to the last node
+    temp = *head;
+
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+
+    // Link new node at the end
+    temp->next = newNode;
+}
