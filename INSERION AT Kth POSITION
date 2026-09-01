@@ -1,0 +1,38 @@
+void insertKth(struct Node **head, int value, int k)
+{
+    struct Node *newNode;
+    struct Node *temp;
+    int i;
+
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    newNode->data = value;
+
+    // Insertion at first position
+    if (k == 1)
+    {
+        newNode->next = *head;
+        *head = newNode;
+        return;
+    }
+
+    temp = *head;
+
+    // Move to (k-1)th node
+    for (i = 1; i < k - 1 && temp != NULL; i++)
+    {
+        temp = temp->next;
+    }
+
+    // Invalid position
+    if (temp == NULL)
+    {
+        printf("Invalid position\n");
+        free(newNode);
+        return;
+    }
+
+    // Insert the new node
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
