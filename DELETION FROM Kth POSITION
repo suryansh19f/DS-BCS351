@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+struct Node* deleteKth(struct Node *head, int k) {
+    // Empty list
+    if (head == NULL) {
+        return NULL;
+    }
+
+    // Delete first node
+    if (k == 1) {
+        struct Node *temp = head;
+        head = head->next;
+        free(temp);
+        return head;
+    }
+
+    struct Node *temp = head;
+
+    // Move to (k-1)th node
+    for (int i = 1; i < k - 1 && temp != NULL; i++) {
+        temp = temp->next;
+    }
+
+    // Invalid position
+    if (temp == NULL || temp->next == NULL) {
+        printf("Invalid position\n");
+        return head;
+    }
+
+    // Delete kth node
+    struct Node *del = temp->next;
+    temp->next = del->next;
+    free(del);
+
+    return head;
+}
+
+void display(struct Node *head) {
+    while (head != NULL) {
+        printf("%d -> ", head->data);
+        head = head->next;
+    }
+    printf("NULL\n");
+}
